@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useParams, Outlet, Link } from "react-router-dom";
 import { getMovieDetails } from "../../api/tmdbApi";
 import { getImageUrl } from "../../api/tmdbApi";
+import css from "./MovieDetailsPage.module.css";
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
@@ -23,14 +24,36 @@ export default function MovieDetailsPage() {
   if (!movie) return <p>Loading...</p>;
 
   return (
-    <div>
+    <div className={css.generalBlok}>
       {movie && (
-        <div>
-          <h1>{movie.title}</h1>
-          <img src={getImageUrl(movie.poster_path)} alt={movie.title} />
-          <p>{movie.overview}</p>
-          <Link to="cast">Cast</Link>
-          <Link to="reviews">Reviews</Link>
+        <div className={css.block}>
+          <div className={css.imgBlock}>
+            <img
+              src={getImageUrl(movie.poster_path)}
+              alt={movie.title}
+              className={css.image}
+            />
+          </div>
+          <div className={css.infBlock}>
+            <h1 className={css.title}>{movie.title}</h1>
+            <p className={css.text}>{movie.overview}</p>
+            <p className={css.text}>{movie.status}</p>
+            <p className={css.text}>
+              <strong>Rating:</strong> {movie.vote_average}
+            </p>
+            <p className={css.text}>
+              <strong>Release Date:</strong> {movie.release_date}
+            </p>
+          </div>
+          <Link to="cast" className={css.linkCast}>
+            Cast
+          </Link>
+          <Link to="reviews" className={css.linkReviews}>
+            Reviews
+          </Link>
+          <Suspense fallback={<h2>LOADING...</h2>}>
+            <Outlet />
+          </Suspense>
         </div>
       )}
     </div>

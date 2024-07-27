@@ -1,26 +1,16 @@
 import axios from "axios";
 
-// const API_KEY = "acbd01b79df1e8f8f6e232ccb0775eac";
 const BASE_URL = "https://api.themoviedb.org/3";
-
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/";
 const IMAGE_SIZE = "w500";
-
-// const url =
-//   "https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1";
 
 const api = axios.create({
   baseURL: BASE_URL,
   headers: {
     Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhY2JkMDFiNzlkZjFlOGY4ZjZlMjMyY2NiMDc3NWVhYyIsIm5iZiI6MTcyMTk4MjgwMS42NjU0MzEsInN1YiI6IjY2YTM0YzE2ZmE0NTRjOWY2MTE2NDZmOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0u6uZlYvtF6VaTxxkX_zUMNUduwCYu2L6sXKkWFnFU8",
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MWI0NDZmOTk1NTE2MzUyYWRkMjhmMTU1YTY3YzRhNCIsIm5iZiI6MTcyMjAyNjEzMi40MzYwNCwic3ViIjoiNjZhMzRjMTZmYTQ1NGM5ZjYxMTY0NmY5Iiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.-lmU7W6pxpghiJP_e4GQU2FaxaE3Y9mLDQ-AY0a5N-I",
   },
 });
-
-// axios
-//   .get(url, options)
-//   .then((response) => console.log(response))
-//   .catch((err) => console.error(err));
 
 export const fetchTrendingMovies = async () => {
   try {
@@ -75,5 +65,7 @@ export const getMovieReviews = async (movieId) => {
 };
 
 export function getImageUrl(path) {
-  return `${BASE_IMAGE_URL}${IMAGE_SIZE}${path}`;
+  const defaultImg =
+    "https://w7.pngwing.com/pngs/177/551/png-transparent-user-interface-design-computer-icons-default-stephen-salazar-graphy-user-interface-design-computer-wallpaper-sphere-thumbnail.png";
+  return path ? `${BASE_IMAGE_URL}${IMAGE_SIZE}${path}` : defaultImg;
 }

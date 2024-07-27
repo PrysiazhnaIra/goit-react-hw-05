@@ -1,5 +1,10 @@
 .container {
   padding: 20px;
+  border-radius: 12px;
+  background-color: #dfd5d5b5;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .mainTitle {
@@ -27,11 +32,19 @@
     font-size: 2rem;
     margin: 15px 0;
   }
+
+  .container {
+    padding: 15px;
+  }
 }
 
 @media (max-width: 480px) {
   .mainTitle {
     font-size: 1.5rem;
     margin: 10px 0;
+  }
+
+  .container {
+    padding: 10px;
   }
 }
