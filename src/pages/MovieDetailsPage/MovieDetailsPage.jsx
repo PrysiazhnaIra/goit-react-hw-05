@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useState } from "react";
-import { useParams, Outlet, Link } from "react-router-dom";
+import { useParams, Outlet, Link, useLocation } from "react-router-dom";
 import { getMovieDetails } from "../../api/tmdbApi";
 import { getImageUrl } from "../../api/tmdbApi";
 import css from "./MovieDetailsPage.module.css";
@@ -7,6 +7,9 @@ import css from "./MovieDetailsPage.module.css";
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+
+  const location = useLocation();
+  console.log(location);
 
   useEffect(() => {
     const fetchMoviesDetails = async () => {
@@ -25,6 +28,10 @@ export default function MovieDetailsPage() {
 
   return (
     <div className={css.generalBlok}>
+      <Link to={location.state?.from || "/movies"} className={css.goBackButton}>
+        Go back to movies!
+      </Link>
+
       {movie && (
         <div className={css.block}>
           <div className={css.imgBlock}>
@@ -45,10 +52,18 @@ export default function MovieDetailsPage() {
               <strong>Release Date:</strong> {movie.release_date}
             </p>
           </div>
-          <Link to="cast" className={css.linkCast}>
+          <Link
+            to="cast"
+            className={css.linkCast}
+            state={{ from: location.state?.from }}
+          >
             Cast
           </Link>
-          <Link to="reviews" className={css.linkReviews}>
+          <Link
+            to="reviews"
+            className={css.linkReviews}
+            state={{ from: location.state?.from }}
+          >
             Reviews
           </Link>
           <Suspense fallback={<h2>LOADING...</h2>}>

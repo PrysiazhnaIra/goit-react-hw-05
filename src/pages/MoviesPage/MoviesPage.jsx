@@ -4,22 +4,20 @@ import {
   useLocation,
   Link,
   useSearchParams,
-  Outlet,
 } from "react-router-dom";
 import { searchMovies } from "../../api/tmdbApi";
 import MovieList from "../../components/MovieList/MovieList";
 import SearchForm from "../../components/SearchForm/SearchForm";
-import css from "./MoviesPage.module.css";
+// import css from "./MoviesPage.module.css";
 
 export default function MoviesPage() {
   const [movies, setMovies] = useState([]);
 
-  // const navigate = useNavigate();
-  // const location = useLocation();
-  // const goBackRef = useRef(location.state?.from || "/movies");
-
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query") ?? "";
+
+  const location = useLocation();
+  console.log(location);
 
   useEffect(() => {
     if (query) {
@@ -39,19 +37,8 @@ export default function MoviesPage() {
     setSearchParams({ query: value });
   };
 
-  // const handleGoBack = () => {
-  //   const backLink = location.state?.from ?? "/";
-  //   navigate(backLink);
-  // };
-
   return (
     <div>
-      {movies.length >= 0 && (
-        // <button onClick={handleGoBack} className={css.goBackButton}>
-        //   Go back
-        // </button>
-        <Link className={css.goBackButton}>Go back to movies</Link>
-      )}
       <SearchForm onSearch={handleSearch} />
       <MovieList movies={movies} />
     </div>
