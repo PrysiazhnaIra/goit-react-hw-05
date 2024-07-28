@@ -1,8 +1,8 @@
 import css from "./SearchForm.module.css";
 import { useState } from "react";
 
-export default function SearchForm({ onSearch }) {
-  const [query, setQuery] = useState("");
+export default function SearchForm({ onSearch, initialQuery }) {
+  const [query, setQuery] = useState(initialQuery);
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -39,7 +39,7 @@ export default function MoviesPage() {
 
   return (
     <div>
-      <SearchForm onSearch={handleSearch} />
+      <SearchForm onSearch={handleSearch} initialQuery={query} />
       <MovieList movies={movies} />
     </div>
   );
