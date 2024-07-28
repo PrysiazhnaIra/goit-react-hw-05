@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState, useRef } from "react";
 import { useParams, Outlet, Link, useLocation } from "react-router-dom";
 import { getMovieDetails } from "../../api/tmdbApi";
 import { getImageUrl } from "../../api/tmdbApi";
@@ -9,7 +9,7 @@ export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
 
   const location = useLocation();
-  console.log(location);
+  const goBackRef = useRef(location.state?.from || "/movies");
 
   useEffect(() => {
     const fetchMoviesDetails = async () => {
@@ -28,7 +28,7 @@ export default function MovieDetailsPage() {
 
   return (
     <div className={css.generalBlok}>
-      <Link to={location.state?.from || "/movies"} className={css.goBackButton}>
+      <Link to={goBackRef.current} className={css.goBackButton}>
         Go back to movies!
       </Link>
 
